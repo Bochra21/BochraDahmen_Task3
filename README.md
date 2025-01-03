@@ -1,16 +1,22 @@
-# miniprojet
+# Notes management app in Flutter
+=====================================
+## Description
+This is a simple notes management app built with Flutter. It allows users to create, read, update and delete notes, it also allows user authentication using firebase.
+## Features
+- User authentication using Firebase
+- Create, read, update and delete notes
+## Demo
+![Auth Demo](assets/auth.webm)
+![Notes Demo](assets/notes.webm)
+## How to install
+1. Clone the repository
+git clone https://github.com/Bochra21/BochraDahmen_Task3.git
+2. Navigate to project root
+cd miniprojet
+3. Run `flutter pub get` to get the dependencies
+4. Run `flutter run` to start the app
 
-A new Flutter project.
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
