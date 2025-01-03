@@ -13,6 +13,7 @@ class AuthProvider with ChangeNotifier {
       notifyListeners();
     });
   }
+
   Future<void> signUp(String name, String email, String password) async {
     try {
       UserCredential userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
@@ -22,6 +23,22 @@ class AuthProvider with ChangeNotifier {
       await userCredential.user?.updateDisplayName(name);
       _user = userCredential.user;
       notifyListeners();
+    } on FirebaseAuthException catch (e) {
+      String errorMessage;
+      switch (e.code) {
+        case 'email-already-in-use':
+          errorMessage = 'The email address is already in use by another account.';
+          break;
+        case 'invalid-email':
+          errorMessage = 'The email address is not valid.';
+          break;
+        case 'weak-password':
+          errorMessage = 'Your password should be at least 8 characters long and include a mix of letters, numbers, and special characters (e.g., @, #, %)';
+          break;
+        default:
+          errorMessage = 'An unknown error occurred. Please try again.';
+      }
+      throw Exception(errorMessage);
     } catch (e) {
       throw Exception('Sign-up failed: $e');
     }

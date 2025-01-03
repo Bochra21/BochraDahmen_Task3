@@ -104,26 +104,28 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ElevatedButton(
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
-                    final authProvider =
-                        Provider.of<AuthProvider>(context, listen: false);
-
-                    await authProvider.signUp(
-                      _nameController.text,
-                      _emailController.text,
-                      _passwordController.text,
-                    );
-
-                   
-                    context.go('/sign-in');
+                    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+                    try {
+                      await authProvider.signUp(
+                        _nameController.text,
+                        _emailController.text,
+                        _passwordController.text,
+                      );
+                      context.go('/sign-in');
+                    } catch (e) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text(e.toString())),
+                      );
+                    }
                   }
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Theme.of(context).primaryColor, // Background color
-                  foregroundColor: Colors.white, // Text color
+                  backgroundColor: Theme.of(context).primaryColor,
+                  foregroundColor: Colors.white,
                 ),
                 child: const Text('Sign Up'),
               ),
-              const SizedBox(height: 16), // Space between button and text
+              const SizedBox(height: 16),
               TextButton(
                 onPressed: () {
                   context.go('/sign-in');
@@ -131,7 +133,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 child: const Text(
                   "Already have an account? Sign In",
                   style: TextStyle(
-                    color: Color.fromARGB(255, 62, 40, 40), // Optional: Custom text color
+                    color: Color.fromARGB(255, 62, 40, 40),
                     fontSize: 16,
                   ),
                 ),
