@@ -1,4 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart'; 
 import 'package:flutter/foundation.dart';
 
 class AuthProvider with ChangeNotifier {
@@ -33,7 +33,7 @@ class AuthProvider with ChangeNotifier {
           errorMessage = 'The email address is not valid.';
           break;
         case 'weak-password':
-          errorMessage = 'Your password should be at least 8 characters long and include a mix of letters, numbers, and special characters (e.g., @, #, %)';
+          errorMessage = 'Your password should be at least 8 characters long and include a mix of letters, numbers, and special characters (e.g., @, #, %).';
           break;
         default:
           errorMessage = 'An unknown error occurred. Please try again.';
@@ -49,6 +49,22 @@ class AuthProvider with ChangeNotifier {
       await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
       _user = _firebaseAuth.currentUser;
       notifyListeners();
+    } on FirebaseAuthException catch (e) {
+      String errorMessage;
+      switch (e.code) {
+        case 'user-not-found':
+          errorMessage = 'No user found with this email address. Please check your email or sign up.';
+          break;
+        case 'wrong-password':
+          errorMessage = 'The password is incorrect. Please try again.';
+          break;
+        case 'invalid-email':
+          errorMessage = 'The email address is not valid. Please check the format.';
+          break;
+        default:
+          errorMessage = 'An unknown error occurred. Check your email and password and try again.';
+      }
+      throw Exception(errorMessage);
     } catch (e) {
       throw Exception('Sign-in failed: $e');
     }

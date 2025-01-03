@@ -77,18 +77,16 @@ class _SignInScreenState extends State<SignInScreen> {
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
                     try {
-                    
                       await authProvider.signIn(
                         _emailController.text,
                         _passwordController.text,
                       );
-
-                    
                       context.go('/home');
                     } catch (e) {
-                      
+                      // Extracting the error message from the exception and showing it in a SnackBar
+                      String errorMessage = e.toString();
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Sign-in failed: ${e.toString()}')),
+                        SnackBar(content: Text(errorMessage)),
                       );
                     }
                   }
@@ -102,7 +100,7 @@ class _SignInScreenState extends State<SignInScreen> {
               const SizedBox(height: 16), 
               TextButton(
                 onPressed: () {
-                
+                  // Handle password reset
                 },
                 child: const Text(
                   'Forgot Password?',
