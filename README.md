@@ -25,7 +25,7 @@ Edit Note Screen
 - Flutter SDK installed.
 - Compatible IDE (e.g., Android Studio, VS Code).
 - Emulator or physical device for testing.
-### App Instalation steps
+### App Installation steps
 1. Clone the repository
 `git clone https://github.com/Bochra21/BochraDahmen_Task3.git`
 2. Navigate to project root
